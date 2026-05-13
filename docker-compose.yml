@@ -1,0 +1,75 @@
+services:
+  allam-llm:
+    image: ghcr.io/ggml-org/llama.cpp:server-cuda
+    container_name: saudilawrag-allam-llm
+    restart: unless-stopped
+
+    ports:
+      - "${LLM_PORT}:8080"
+
+    volumes:
+      - type: bind
+        source: "${LLM_MODEL_DIR}"
+        target: /models
+        read_only: true
+
+    command:
+      [
+        "-m", "/models/${LLM_MODEL_FILE}",
+        "--host", "0.0.0.0",
+        "--port", "8080",
+        "-c", "${LLM_CONTEXT_SIZE}",
+        "-t", "${LLM_THREADS}",
+        "-ngl", "${LLM_GPU_LAYERS}",
+        "--parallel", "${LLM_PARALLEL}",
+        "--cont-batching"
+      ]
+
+    gpus: all
+
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 90s
+
+  db:
+    image: ankane/pgvector:latest
+    container_name: saudilawrag-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-saudi_law_user}
+      POSTGRES_PASSWORD: ${DB_PASS:-saudi_law_password}
+      POSTGRES_DB: ${DB_NAME:-saudi_law_rag}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-saudi_law_user} -d ${DB_NAME:-saudi_law_rag}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  app:
+    build: .
+    container_name: saudilawrag-app
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      allam-llm:
+        condition: service_healthy
+    env_file:
+      - .env
+    command: ["python", "-m", "api.server"]
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    # Starts the FastAPI server to serve the API on port 8000
+
+volumes:
+  pgdata:

@@ -1,0 +1,15 @@
+FROM ./ALLaM-AI_ALLaM-7B-Instruct-preview-Q6_K.gguf
+
+# Set parameters
+PARAMETER temperature 0.7
+PARAMETER top_p 0.9
+
+# Define the system message or template if required by ALLaM
+TEMPLATE """{{ if .System }}<|system|>
+{{ .System }}<|end|>
+{{ end }}{{ if .Prompt }}<|user|>
+{{ .Prompt }}<|end|>
+{{ end }}<|assistant|>
+{{ .Response }}"""
+
+SYSTEM """أنت مساعد قانوني ذكي متخصص في الأنظمة والقوانين السعودية."""

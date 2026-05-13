@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مساعد الأنظمة السعودية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <!-- Geometric background canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="chat-container">
+
+        <header class="header">
+            <div class="header-emblem">
+                <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="30,4 56,19 56,41 30,56 4,41 4,19" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
+                    <polygon points="30,12 50,23 50,39 30,50 10,39 10,23" stroke="#c9a84c" stroke-width="0.8" fill="none" opacity="0.5"/>
+                    <circle cx="30" cy="30" r="8" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
+                    <line x1="30" y1="4" x2="30" y2="22" stroke="#c9a84c" stroke-width="0.8" opacity="0.6"/>
+                    <line x1="30" y1="38" x2="30" y2="56" stroke="#c9a84c" stroke-width="0.8" opacity="0.6"/>
+                    <line x1="4" y1="19" x2="22" y2="26" stroke="#c9a84c" stroke-width="0.8" opacity="0.6"/>
+                    <line x1="38" y1="34" x2="56" y2="41" stroke="#c9a84c" stroke-width="0.8" opacity="0.6"/>
+                    <line x1="56" y1="19" x2="38" y2="26" stroke="#c9a84c" stroke-width="0.8" opacity="0.6"/>
+                    <line x1="22" y1="34" x2="4" y2="41" stroke="#c9a84c" stroke-width="0.8" opacity="0.6"/>
+                </svg>
+            </div>
+            <div class="header-text">
+                <h1>مساعد الأنظمة السعودية</h1>
+                <p>مدعوم بنموذج ALLaM &nbsp;·&nbsp; بحث في الأنظمة واللوائح والتنظيمات</p>
+            </div>
+            <div class="header-status">
+                <span class="status-dot"></span>
+                <span>متصل</span>
+            </div>
+        </header>
+
+        <div class="chat-box" id="chat-box">
+            <!-- Welcome message -->
+            <div class="welcome-block">
+                <p class="welcome-title">أهلاً بك</p>
+                <p class="welcome-sub">يمكنك سؤالي عن الأنظمة والقوانين واللوائح والتنظيمات السعودية. سأبحث في قاعدة البيانات القانونية وأقدم لك إجابة موثوقة ومستندة.</p>
+                <div class="welcome-chips">
+                    <button class="chip" onclick="fillQuery(this)">ما هي شروط تأسيس شركة؟</button>
+                    <button class="chip" onclick="fillQuery(this)">ما هي حقوق العامل في نظام العمل؟</button>
+                    <button class="chip" onclick="fillQuery(this)">ما هي أحكام نظام الإجراءات الجزائية؟</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading-indicator" id="loading-indicator" style="display:none;">
+            <span class="loading-label">جارٍ البحث في الأنظمة</span>
+            <div class="dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="input-wrapper">
+                <textarea id="query-input" placeholder="اكتب سؤالك القانوني هنا..." rows="1"></textarea>
+                <button id="send-btn" type="button">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <p class="footer-note">الإجابات مستندة إلى قاعدة البيانات القانونية فقط ولا تُعدّ استشارة قانونية.</p>
+        </footer>
+
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

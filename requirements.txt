@@ -1,0 +1,19 @@
+requests==2.31.0
+beautifulsoup4==4.12.3
+psycopg2-binary==2.9.9
+sentence-transformers==2.7.0
+tqdm==4.66.2
+python-dotenv==1.0.1
+
+# Pin to a 0.10.x build that has ReActAgentWorker + AgentRunner.
+# Do NOT use <0.11 without a lower bound — early 0.10.x builds lack these classes.
+llama-index-core>=0.10.20,<0.11
+
+# Only the OpenAI-Like integration is needed (points at local llama.cpp server).
+# llama-index-llms-openai is intentionally removed: it is unused and its presence
+# causes LlamaIndex to register OpenAI as the default LLM provider, which then
+# fails at startup with "No API key found for OpenAI".
+llama-index-llms-openai-like>=0.1,<0.2
+
+fastapi
+uvicorn
