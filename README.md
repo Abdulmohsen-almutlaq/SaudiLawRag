@@ -193,6 +193,13 @@ docker compose up --build -d
   - Model files can be large — ensure you have sufficient disk space.
   - For production, consider using a managed model service or a dedicated inference host.
 
+## Contact
+
+If you want to reach the project author or discuss improvements, use the following:
+
+- Email: [abdul.almutlaq@hotmail.com](mailto:abdul.almutlaq@hotmail.com)
+- LinkedIn: [abdulmohsen-almutlaq-589b01300](https://www.linkedin.com/in/abdulmohsen-almutlaq-589b01300/)
+
 ## How to Use (Interface & CLI)
 
 Once the Docker container is actively running, you can interact with the Saudi Law RAG system in two primary ways:
