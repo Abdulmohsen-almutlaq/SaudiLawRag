@@ -208,21 +208,13 @@ Once the Docker container is actively running, you can interact with the Saudi L
 Access the local frontend (typically at `http://localhost:8000` or depending on your docker setup) to directly ask questions in Arabic. The interface will converse with the `ALLaM` model and display retrieved legal citations visually.
 
 ### 2. Command Line Interface (CLI)
-You can manage the complete RAG data pipeline and test semantic retrieval directly from your terminal using `manage.py`. When running through Docker, prefix commands with `docker compose exec app`:
-
-```bash
-# 1. Scrape latest regulations (skips existing by default)
-docker compose exec app python manage.py scrape
-
-# 2. Generate embeddings and build database
-docker compose exec app python manage.py build-db
-
-# 3. Test Retrieval Validation instantly
-docker compose exec app python manage.py search "متى يحق للعامل طلب إجازة؟" --top 3
-```
-
 > **Note:** For more advanced CLI flags, forced updates, and automated scripts, see the full [CLI Command Reference](CLI.md).
+## Contact
 
+If you want to reach the project author or discuss improvements, use the following:
+
+- Email: [abdul.almutlaq@hotmail.com](mailto:abdul.almutlaq@hotmail.com)
+- LinkedIn: [abdulmohsen-almutlaq-589b01300](https://www.linkedin.com/in/abdulmohsen-almutlaq-589b01300/)
 ---
 *Disclaimer: This tool is for informational purposes and does not replace official legal counsel.*
 
