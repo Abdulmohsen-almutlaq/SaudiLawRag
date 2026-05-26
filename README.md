@@ -36,7 +36,7 @@ This project uses the following technologies:
 - **Structured Data Pipeline**: Operates on a structured dataset systematically parsed directly from official government legal sources.
 - **Agentic Query Rephrasing**: Uses an embedded LLM step to automatically rewrite conversational user inputs into formal legal search intents prior to retrieval, maximizing the accuracy of context fetching.
 - **Real-Time NDJSON Streaming**: Features a full-stack Newline-Delimited JSON (NDJSON) streaming protocol, allowing the backend to stream metadata (like the rephrased query) alongside text chunks to the frontend.
-- **Expert UI Visibility**: The web interface transparently exposes the agent's internal workings by displaying the rephrased search query to the user in real-time alongside the streamed answer.
+- **UI Visibility**: The web interface transparently exposes the agent's internal workings by displaying the rephrased search query to the user in real-time alongside the streamed answer.
 
 ## Technical Architecture
 
