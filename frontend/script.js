@@ -112,14 +112,39 @@ document.addEventListener('DOMContentLoaded', () => {
             const decoder = new TextDecoder('utf-8');
 
             // Create bot message element and mark it as streaming
-            const botEl = appendMessage('', 'bot', false, true);
+            const wrapperObj = appendMessage('', 'bot', false, true);
+            const botEl = wrapperObj.msg;
+            const labelEl = wrapperObj.label;
 
             setLoading(false);
+
+            let buffer = "";
 
             while (true) {
                 const { value, done } = await reader.read();
                 if (done) break;
-                botEl.textContent += decoder.decode(value, { stream: true });
+                
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split('\n');
+                
+                // Keep the last incomplete line in the buffer
+                buffer = lines.pop();
+
+                for (const line of lines) {
+                    if (!line.trim()) continue;
+                    try {
+                        const data = JSON.parse(line);
+                        if (data.type === "meta" && data.rephrased_query) {
+                            // Display the expert's rephrased search query in the label
+                            labelEl.innerHTML = `ALLaM <span style="font-size: 0.75rem; color: #a0a0a0; font-weight: normal; margin-right: 8px;">(البحث عن: ${data.rephrased_query})</span>`;
+                        } else if (data.type === "chunk") {
+                            botEl.textContent += data.text;
+                        }
+                    } catch (e) {
+                        // fallback if json parse fails
+                        console.error('Failed to parse NDJSON line', e, line);
+                    }
+                }
                 chatBox.scrollTop  = chatBox.scrollHeight;
             }
 
@@ -160,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chatBox.appendChild(wrapper);
         chatBox.scrollTop = chatBox.scrollHeight;
 
-        return msg; // return the message div for streaming
+        return { msg, label, wrapper }; // return elements to allow updating metadata
     }
 
     function setLoading(on) {

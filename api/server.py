@@ -38,10 +38,10 @@ async def read_index():
 
 @app.post("/api/chat")
 async def chat_endpoint(request: ChatRequest):
-    """Streams the LLM response back to the client word-by-word."""
+    """Streams the LLM response back to the client using NDJSON."""
     return StreamingResponse(
         rag_engine.stream_answer_api(request.query, top_k=request.top_k), 
-        media_type="text/plain"
+        media_type="application/x-ndjson"
     )
 
 def start_server():
